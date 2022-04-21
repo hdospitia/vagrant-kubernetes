@@ -33,6 +33,26 @@ Once ready to deploy, hit:
 vagrant up
 ```
 
+You must use a mean to translate names to IPs (DNS) such as the
+hosts file or a DNS server. Take care of the IP used by the
+master-1 or the load balancer virtual IP, due you need to put
+it into your /etc/hosts file with your "cluster_endpoint_name",
+which is used on the generated kubeconfig file.
+
+For instance, if you did enable the load balancer by
+```use_loadbalancer = true```, just use the value of the variable
+"keepalived_virtual_ip" and put it into your /etc/hosts file,
+translating to the value of "cluster_endpoint_name" variable, like
+this:
+```console
+echo "192.168.56.100   my-kubernetes-cluster" | sudo tee -a /etc/hosts
+```
+
+If you use defaults, just hit:
+```console
+echo "192.168.56.21   my-kubernetes-cluster" | sudo tee -a /etc/hosts
+```
+
 At the end of the deployment, Vagrant put the admin kubeconfig
 file on the working directory to connect to the new Kubernetes
 cluster. You can choose one of the following options to connect
