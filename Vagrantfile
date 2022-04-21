@@ -194,6 +194,7 @@ EOF
                 when 1
                     master.vm.provision :shell, inline: "sudo kubeadm init --token #{join_token} --control-plane-endpoint #{cluster_endpoint_name} --upload-certs --apiserver-cert-extra-sans=#{keepalived_virtual_ip} --apiserver-advertise-address=#{current_master_node_ip}"
                     master.vm.provision :shell, inline: "mkdir /home/vagrant/.kube && sudo cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown vagrant:vagrant /home/vagrant/.kube/config"
+                    master.vm.provision :shell, inline: "cp /home/vagrant/.kube/config /vagrant/kubeconfig"
                     master.vm.provision :shell, inline: $deploy_weavenetwork_script
                 else
                     master.vm.provision :shell, inline: "sudo kubeadm join --token #{join_token} --control-plane --discovery-token-unsafe-skip-ca-verification --apiserver-advertise-address=#{current_master_node_ip} #{cluster_endpoint_name}"
@@ -204,6 +205,7 @@ EOF
                 when 1
                     master.vm.provision :shell, inline: "sudo kubeadm init --token #{join_token} --control-plane-endpoint #{cluster_endpoint_name} --upload-certs --apiserver-cert-extra-sans=#{current_master_node_ip} --apiserver-advertise-address=#{current_master_node_ip}"
                     master.vm.provision :shell, inline: "mkdir /home/vagrant/.kube && sudo cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown vagrant:vagrant /home/vagrant/.kube/config"
+                    master.vm.provision :shell, inline: "cp /home/vagrant/.kube/config /vagrant/kubeconfig"
                     master.vm.provision :shell, inline: $deploy_weavenetwork_script
                 else
                     master.vm.provision :shell, inline: "sudo kubeadm join --token #{join_token} --control-plane --discovery-token-unsafe-skip-ca-verification --apiserver-advertise-address=#{current_master_node_ip} #{cluster_endpoint_name}"
