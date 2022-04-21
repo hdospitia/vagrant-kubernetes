@@ -1,6 +1,6 @@
 # Installation
 
-Pending
+Pending...
 
 It will put the admin kubeconfig file on the working
 directory to connect to the new Kubernetes cluster.
@@ -9,11 +9,21 @@ locally to the deployed cluster:
 
 ## Option A
 Set the configuration using the KUBECONFIG envvar and
-kubeconfig the file into the current directory.
+kubeconfig the file into the current directory. Make
+sure you are still inside of this repo when launch the
+command:
 
 ```console
 export KUBECONFIG=$(pwd)/kubeconfig
 ```
+
+### Note:
+This leverages the [Vagrant capability of mount the Vagrantfile
+parent folder inside of the VM on /vagrant path]
+(https://www.vagrantup.com/docs/synced-folders#synced-folders).
+Inside of the Vagrantfile, I copy the generated
+kubeconfig to the /vagrant/ folder, which makes it
+available for you into the repo directory.
 
 ## Option B
 Move the kubeconfig file to the $HOME/.kube folder and
