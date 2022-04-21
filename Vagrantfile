@@ -1,27 +1,38 @@
-# Cluster seteup configuration
+#-------------------------------------------------------------------------
+# Cluster setup configuration
+#-------------------------------------------------------------------------
 master_nodes            = 1
 worker_nodes            = 1
 cluster_endpoint_name   = "my-kubernetes-cluster"
 use_loadbalancer        = false
 
+#-------------------------------------------------------------------------
 # Network addressing configuration
+#-------------------------------------------------------------------------
 keepalived_virtual_ip   = "192.168.56.100"
 load_balancer_network   = "192.168.56.1"
 master_nodes_network    = "192.168.56.2"
 worker_nodes_network    = "192.168.56.3"
 master_nodes_addresses  = []
 
+#-------------------------------------------------------------------------
 # Creates the master_nodes_addresses array to use into the HAProxy
 # configuration if LB is enabled
+#-------------------------------------------------------------------------
 (1..master_nodes).each do |node|
     master_nodes_addresses.append("#{master_nodes_network}#{node}")
 end
 
+#-------------------------------------------------------------------------
 # Generate Kubernetes authorization token for cluster joining
+#-------------------------------------------------------------------------
 require 'securerandom'
 join_token = SecureRandom.alphanumeric(6).downcase + "." + SecureRandom.alphanumeric(16).downcase
 
-# Script configuration for components setup like Keepalived, HAProxy and Kubernetes Master/Worker nodes
+#-------------------------------------------------------------------------
+# Script configuration for components setup like Keepalived, HAProxy 
+# and Kubernetes Master/Worker nodes
+#-------------------------------------------------------------------------
 $haproxy_config_script = <<SCRIPT
 cat <<-EOF | sudo tee /etc/haproxy/haproxy.cfg
 # /etc/haproxy/haproxy.cfg
@@ -133,8 +144,9 @@ SCRIPT
 
 
 
-
+#-------------------------------------------------------------------------
 # VMs configuration
+#-------------------------------------------------------------------------
 Vagrant.configure("2") do |config|
 
     # LoadBalancer VMs configuration

@@ -1,10 +1,41 @@
-# Installation
+# Brief
 
-Pending...
+This Vagrant configuration let you deploy a basic,
+local Kubernetes cluster with the Weave-Net CNI plugin.
+Also it is possible to launch a highly available load
+balancer using HAProxy and KeepAlived, but it is
+disabled by default since it requires more horse power.
 
-It will put the admin kubeconfig file on the working
-directory to connect to the new Kubernetes cluster.
-You can choose one of the following options to connect
+## Note:
+Please don't hate me, but I tested it on Linux environment,
+and works perfectly. Windows can be more RAM and CPU greedy,
+so may be provisioning VMs never ends.
+
+# Deployment
+
+Take a quick look on the variables at the top of the
+Vagrantfile. Those allows you to select how many master
+and worker nodes you want to deploy. Additionally, you
+can decide between deploy a HAProxy load balancer or not.
+It is disabled by default. Be familiarized with the
+values set and be sure that those matches with your
+capacity and intentions.
+
+Keep in mind that more nodes or even enabling the load
+balancer will demand more resource power (Two VMs will be
+launched to run HAProxy and KeepAlived). It's recommended
+to plan and validate if you have enough resources in your
+machine before to deploy or modify defaults.
+
+Once ready to deploy, hit:
+
+```console
+vagrant up
+```
+
+At the end of the deployment, Vagrant put the admin kubeconfig
+file on the working directory to connect to the new Kubernetes
+cluster. You can choose one of the following options to connect
 locally to the deployed cluster:
 
 ## Option A
