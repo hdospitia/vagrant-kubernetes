@@ -6,10 +6,9 @@ Also it is possible to launch a highly available load
 balancer using HAProxy and KeepAlived, but it is
 disabled by default since it requires more horse power.
 
-## Note:
-Please don't hate me, but I tested it on Linux environment,
-and works perfectly. Windows can be more RAM and CPU greedy,
-so may be provisioning VMs never ends.
+***Note:*** Please don't hate me, but I tested it on Linux
+environment, and works perfectly. Windows can be more RAM
+and CPU greedy, so may be provisioning VMs never ends.
 
 # Deployment
 
