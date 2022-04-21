@@ -18,12 +18,11 @@ export KUBECONFIG=$(pwd)/kubeconfig
 ```
 
 ### Note:
-This leverages the [Vagrant capability of mount the Vagrantfile
-parent folder inside of the VM on /vagrant path]
-(https://www.vagrantup.com/docs/synced-folders#synced-folders).
-Inside of the Vagrantfile, I copy the generated
-kubeconfig to the /vagrant/ folder, which makes it
-available for you into the repo directory.
+This leverages the [Vagrant capability](https://www.vagrantup.com/docs/synced-folders#synced-folders)
+of mount the Vagrantfile parent folder inside of
+the VM on /vagrant path. On the Vagrantfile, I copy
+the generated kubeconfig to the /vagrant/ folder,
+which makes it available for you into the repo directory.
 
 ## Option B
 Move the kubeconfig file to the $HOME/.kube folder and
