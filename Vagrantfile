@@ -137,9 +137,10 @@ fi
 EOF
 SCRIPT
 
-$deploy_weavenetwork_script = <<-'SCRIPT'
+$deploy_cni_script = <<-'SCRIPT'
 export KUBECONFIG=/home/vagrant/.kube/config
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/tigera-operator.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/custom-resources.yaml
 SCRIPT
 
 
@@ -207,7 +208,7 @@ EOF
                     master.vm.provision :shell, inline: "sudo kubeadm init --token #{join_token} --control-plane-endpoint #{cluster_endpoint_name} --upload-certs --apiserver-cert-extra-sans=#{keepalived_virtual_ip} --apiserver-advertise-address=#{current_master_node_ip}"
                     master.vm.provision :shell, inline: "mkdir /home/vagrant/.kube && sudo cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown vagrant:vagrant /home/vagrant/.kube/config"
                     master.vm.provision :shell, inline: "cp /home/vagrant/.kube/config /vagrant/kubeconfig"
-                    master.vm.provision :shell, inline: $deploy_weavenetwork_script
+                    master.vm.provision :shell, inline: $deploy_cni_script
                 else
                     master.vm.provision :shell, inline: "sudo kubeadm join --token #{join_token} --control-plane --discovery-token-unsafe-skip-ca-verification --apiserver-advertise-address=#{current_master_node_ip} #{cluster_endpoint_name}"
                 end
@@ -218,7 +219,7 @@ EOF
                     master.vm.provision :shell, inline: "sudo kubeadm init --token #{join_token} --control-plane-endpoint #{cluster_endpoint_name} --upload-certs --apiserver-cert-extra-sans=#{current_master_node_ip} --apiserver-advertise-address=#{current_master_node_ip}"
                     master.vm.provision :shell, inline: "mkdir /home/vagrant/.kube && sudo cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config && chown vagrant:vagrant /home/vagrant/.kube/config"
                     master.vm.provision :shell, inline: "cp /home/vagrant/.kube/config /vagrant/kubeconfig"
-                    master.vm.provision :shell, inline: $deploy_weavenetwork_script
+                    master.vm.provision :shell, inline: $deploy_cni_script
                 else
                     master.vm.provision :shell, inline: "sudo kubeadm join --token #{join_token} --control-plane --discovery-token-unsafe-skip-ca-verification --apiserver-advertise-address=#{current_master_node_ip} #{cluster_endpoint_name}"
                 end
