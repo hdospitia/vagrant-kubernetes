@@ -190,7 +190,7 @@ EOF
             master.vm.hostname = "kube-master-node-#{i}.local"
             master.vm.provider "virtualbox" do |v|
                 v.name = "kubernetes-master-#{i}"
-                v.memory = 2048
+                v.memory = 4096
                 v.cpus = 2
             end            
             master.vm.network "private_network", ip: "#{master_nodes_network}#{i}",
@@ -233,7 +233,7 @@ EOF
             worker.vm.hostname = "kube-worker-node-#{i}.local"            
             worker.vm.provider "virtualbox" do |v|
                 v.name = "kubernetes-worker-#{i}"
-                v.memory = 2048
+                v.memory = 4096
                 v.cpus = 2
             end            
             worker.vm.network "private_network", ip: "#{worker_nodes_network}#{i}",
