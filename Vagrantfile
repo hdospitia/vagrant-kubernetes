@@ -191,7 +191,7 @@ EOF
             master.vm.provider "virtualbox" do |v|
                 v.name = "kubernetes-master-#{i}"
                 v.memory = 4096
-                v.cpus = 2
+                v.cpus = 3
             end            
             master.vm.network "private_network", ip: "#{master_nodes_network}#{i}",
                 hostname: true,
@@ -234,7 +234,7 @@ EOF
             worker.vm.provider "virtualbox" do |v|
                 v.name = "kubernetes-worker-#{i}"
                 v.memory = 4096
-                v.cpus = 2
+                v.cpus = 3
             end            
             worker.vm.network "private_network", ip: "#{worker_nodes_network}#{i}",
                 hostname: true,
