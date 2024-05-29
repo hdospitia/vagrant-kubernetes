@@ -139,8 +139,7 @@ SCRIPT
 
 $deploy_cni_script = <<-'SCRIPT'
 export KUBECONFIG=/home/vagrant/.kube/config
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/tigera-operator.yaml
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/custom-resources.yaml
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 SCRIPT
 
 
