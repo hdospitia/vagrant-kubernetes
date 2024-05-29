@@ -1,3 +1,5 @@
 # Ignore the .vagrant directory
 .vagrant/
+
+# Ignore the kubeconfig file
 kubeconfig
